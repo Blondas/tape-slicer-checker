@@ -5,7 +5,7 @@ import logging
 
 from tape_slicer_checker.config.tape_slicer_checker_config import ArsAdminRetrieveConfig
 from tape_slicer_checker.services.ars_admin_retrieve_executor import ArsAdminRetrieveExecutor
-from tape_slicer_checker.services.cmd_params_lookup_impl import CmdParameters
+from tape_slicer_checker.services.cmd_parameters import CmdParameters
 
 logger = logging.getLogger(__name__)
 

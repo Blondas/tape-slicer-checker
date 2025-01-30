@@ -2,13 +2,14 @@ import logging
 from pathlib import Path
 
 from tape_slicer_checker.config.tape_slicer_checker_config import TapeSlicerCheckerConfig, load_config
-from tape_slicer_checker.db2.db2_connection import DB2Connection
 from tape_slicer_checker.logging import logging_setup
 from tape_slicer_checker.services.ars_admin_retrieve_executor_impl import ArsAdminRetrieveExecutorImpl
 from tape_slicer_checker.services.checksum_verifier import ChecksumVerifier
-from tape_slicer_checker.services.cmd_params_lookup_impl import CmdParamsLookupImpl, CmdParameters
+from tape_slicer_checker.services.cmd_parameters import CmdParameters
+from tape_slicer_checker.services.cmd_params_lookup_impl import CmdParamsLookupImpl
 from tape_slicer_checker.services.remag_table_lookup_impl import RemagTableLookupImpl
 from tape_slicer_checker.services.remnode_table_lookup_impl import RemnodeTableLookupImpl
+from tape_slicer_checker.db2.db2_connection import DB2Connection
 
 logger = logging.getLogger(__name__)
 

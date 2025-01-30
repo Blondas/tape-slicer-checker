@@ -18,12 +18,20 @@ class DbConfig:
 @dataclass
 class CheckerConfig:
     source_dir: Path
+    
+@dataclass
+class ArsAdminRetrieveConfig:
+    workers_no: int
+    output_dir: Path
+    ondemand_instance: str
+    ondemand_user: str
 
 @dataclass
 class TapeSlicerCheckerConfig:
     logging_config: LoggingConfig
     db_config: DbConfig
     checker_config: CheckerConfig
+    ars_admin_retrieve_config: ArsAdminRetrieveConfig
 
 
 def load_config(config_path: Optional[str] = None) -> TapeSlicerCheckerConfig:
@@ -45,5 +53,11 @@ def load_config(config_path: Optional[str] = None) -> TapeSlicerCheckerConfig:
         ),
         checker_config=CheckerConfig(
             source_dir=Path(yaml_config['checker_config']['source_dir'])
+        ),
+        ars_admin_retrieve_config=ArsAdminRetrieveConfig(
+            workers_no=yaml_config['arsadmin_retriever_config']['workers_no'],
+            output_dir=Path(yaml_config['arsadmin_retriever_config']['output_dir']),
+            ondemand_instance=yaml_config['arsadmin_retriever_config']['ondemand_instance'],
+            ondemand_user=yaml_config['arsadmin_retriever_config']['ondemand_user']
         )
     )

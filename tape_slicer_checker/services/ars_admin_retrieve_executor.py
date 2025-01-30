@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from tape_slicer_checker.services.cmd_params_lookup_impl import CmdParameters
+from tape_slicer_checker.services.cmd_parameters import CmdParameters
 
 
 class ArsAdminRetrieveExecutor(ABC):

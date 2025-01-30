@@ -1,19 +1,14 @@
-from dataclasses import dataclass
+
 from pathlib import Path
 from typing import List, Tuple
 import logging
 
+from tape_slicer_checker.services.cmd_parameters import CmdParameters
 from tape_slicer_checker.services.cmd_params_lookup import CmdParamsLookup
 from tape_slicer_checker.services.remag_table_lookup import RemagTableLookup
 from tape_slicer_checker.services.remnode_table_lookup import RemnodeTableLookup
 
 logger = logging.getLogger(__name__)
-
-@dataclass
-class CmdParameters:
-    ag_name: str
-    node: str
-    file_name: str
     
 class CmdParamsLookupImpl(CmdParamsLookup):
     def __init__(
