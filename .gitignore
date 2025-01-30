@@ -1,0 +1,6 @@
+.DS_Store
+.idea
+__pycache__
+venv
+tape_slicer_checker_config.yaml
+log

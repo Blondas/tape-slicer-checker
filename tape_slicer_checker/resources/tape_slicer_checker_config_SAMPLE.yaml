@@ -1,0 +1,11 @@
+logging_config:
+  log_dir: './log'
+  log_label: ''
+
+db_config:
+  database: 'database'
+  user: 'user'
+  password: 'password'
+
+checker_config:
+  source_dir: "./source_dir"
