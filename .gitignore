@@ -2,5 +2,6 @@
 .idea
 __pycache__
 venv
-tape_slicer_checker_config.yaml
+tape_slicer_checker/config/tape_slicer_checker_config.py
 log
+workingnotes

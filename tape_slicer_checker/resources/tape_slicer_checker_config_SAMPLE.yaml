@@ -9,3 +9,10 @@ db_config:
 
 checker_config:
   source_dir: "./source_dir"
+  
+arsadmin_retriever_config:
+  workers_no: 8
+  output_dir: './'
+  ondemand_instance: 'instance_a'
+  ondemand_user: 'user_a'
+  

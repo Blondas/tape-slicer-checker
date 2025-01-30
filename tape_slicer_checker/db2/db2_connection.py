@@ -4,18 +4,18 @@ from typing import Generator, Optional
 from ibm_db_dbi import connect, Connection, Error as DB2Error
 import logging
 
+from tape_slicer_checker.config.tape_slicer_checker_config import DbConfig
+
 logger = logging.getLogger(__name__)
 
 class DB2Connection:
     def __init__(
         self,
-        database: str,
-        user: str,
-        password: str
+        db_config: DbConfig
     ):
-        self._database = database
-        self._user = user
-        self._password = password
+        self._database = db_config.database
+        self._user = db_config.user
+        self._password = db_config.password
 
     @contextmanager
     def connect(self) -> Generator[Connection, None, None]:
