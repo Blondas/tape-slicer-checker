@@ -16,10 +16,10 @@ class RemagTableLookupImpl(RemagTableLookup):
 
     def _fetch(self) -> Dict[str, Tuple[str, int]]:
         with self._db2_connection.connect() as connection:
-            query: str = "SELECT distinct(agid_name), name, sid FROM remag'"
+            query: str = "SELECT distinct(agid_name), name, sid FROM remag"
             cursor = connection.cursor()
-            rows = cursor.execute(query)
-            return {row[0]: (row[1], row[2]) for row in rows}
+            cursor.execute(query)
+            return {row[0]: (row[1], row[2]) for row in cursor.fetchall()}
         
     def agname_sid(self, agid_name: str) -> Tuple[str, int]:
         try:

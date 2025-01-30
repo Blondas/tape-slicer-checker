@@ -4,7 +4,7 @@ from pathlib import Path
 from tape_slicer_checker.config.tape_slicer_checker_config import TapeSlicerCheckerConfig, load_config
 from tape_slicer_checker.logging import logging_setup
 from tape_slicer_checker.services.ars_admin_retrieve_executor_impl import ArsAdminRetrieveExecutorImpl
-from tape_slicer_checker.services.checksum_verifier import ChecksumVerifier
+from tape_slicer_checker.services.checksum_verifier_impl import ChecksumVerifierImpl
 from tape_slicer_checker.services.cmd_parameters import CmdParameters
 from tape_slicer_checker.services.cmd_params_lookup_impl import CmdParamsLookupImpl
 from tape_slicer_checker.services.remag_table_lookup_impl import RemagTableLookupImpl
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     remnode_table_lookup = RemnodeTableLookupImpl(db2_connection)
     cmd_params_lookup = CmdParamsLookupImpl(remag_table_lookup, remnode_table_lookup)
     ars_admin_retrieve_executor = ArsAdminRetrieveExecutorImpl(config.ars_admin_retrieve_config)
-    checksum_verifier = ChecksumVerifier()
+    checksum_verifier = ChecksumVerifierImpl()
     
     path_objects: list[tuple[Path, CmdParameters]] = cmd_params_lookup.process_directory(config.checker_config.source_dir)
     objects: list[CmdParameters] = [elem[1] for elem in path_objects]
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     failed_verification: list[tuple[Path, Path]] = checksum_verifier.verify(file_pairs)
     logger.info("Files verification finished")
     
-    if not failed_verification:
+    if failed_verification:
         logger.error("Failed pairs:\n" + "\n".join(f"{p[0]} vs {p[1]}" for p in failed_verification))
     else:
         logger.info("All pairs are correct.")
