@@ -34,7 +34,7 @@ if __name__ == '__main__':
     logger.info("Arsadmin retrieve command executed.")
     
     file_pairs: list[tuple[Path, Path]] = [
-        (elem[0], config.ars_admin_retrieve_config.output_dir / elem[1].file_name) 
+        (elem[0], config.ars_admin_retrieve_config.output_dir / elem[1].ag_name / elem[1].file_name) 
         for elem in path_objects
     ]
     

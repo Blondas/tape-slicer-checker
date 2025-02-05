@@ -1,5 +1,6 @@
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from typing import List
 import logging
 
@@ -18,6 +19,8 @@ class ArsAdminRetrieveExecutorImpl(ArsAdminRetrieveExecutor):
         self._output_dir = ars_admin_retriever_config.output_dir
         self._ondemand_instance = ars_admin_retriever_config.ondemand_instance
         self._ondemand_user = ars_admin_retriever_config.ondemand_user
+        
+        self._output_dir.mkdir(parents=True, exist_ok=True)
 
     def _create_command(self, params: CmdParameters) -> list[str]:
         return [
@@ -30,15 +33,19 @@ class ArsAdminRetrieveExecutorImpl(ArsAdminRetrieveExecutor):
         ]
 
     def _execute_command(self, params: CmdParameters) -> None:
+        command = self._create_command(params)
+        location = Path(self._output_dir / params.ag_name)
+        logger.debug(f"Executing : '{' '.join(command)}', from dir: {location}")
+        
         try:
             subprocess.run(
                 self._create_command(params),
                 check=True,
                 capture_output=True,
-                cwd=self._output_dir
+                cwd=location
             )
         except subprocess.CalledProcessError as e:
-            logging.error(f"Command failed for {params}: {e.stderr.decode()}")
+            logging.error(f"Command failed: '{' '.join(command)}', from dir: {location}")
 
     def execute_commands(self, params_list: List[CmdParameters]) -> None:
         with ThreadPoolExecutor(max_workers=self._workers_no) as executor:
