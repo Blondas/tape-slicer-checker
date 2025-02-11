@@ -34,9 +34,9 @@ if __name__ == '__main__':
     ars_admin_retrieve_executor = ArsAdminRetrieveExecutorImpl(config.ars_admin_retrieve_config, args.output_dir)
     checksum_verifier = ChecksumVerifierImpl()
 
-    path_objects: list[tuple[Path, CmdParameters]] = cmd_params_lookup.process_directory(args.source_dir)
+    path_objects: list[tuple[Path, CmdParameters]] = cmd_params_lookup.process_directory(args.input_dir)
     objects: list[CmdParameters] = [elem[1] for elem in path_objects]
-    logger.info(f"Arsadmin parameters fetched from db for {len(path_objects)} objects from {args.source_dir}")
+    logger.info(f"Arsadmin parameters fetched from db for {len(path_objects)} objects from {args.input_dir}")
 
     ars_admin_retrieve_executor.execute_commands(objects)
     logger.info("Arsadmin retrieve command executed.")
