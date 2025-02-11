@@ -31,7 +31,7 @@ if __name__ == '__main__':
     db2_connection = DB2Connection(config.db_config)
     combined_table_lookup = CombinedTableLookupImpl(db2_connection, args.tape_name)
     cmd_params_lookup = CmdParamsLookupImpl(combined_table_lookup)
-    ars_admin_retrieve_executor = ArsAdminRetrieveExecutorImpl(config.ars_admin_retrieve_config)
+    ars_admin_retrieve_executor = ArsAdminRetrieveExecutorImpl(config.ars_admin_retrieve_config, args.output_dir)
     checksum_verifier = ChecksumVerifierImpl()
 
     path_objects: list[tuple[Path, CmdParameters]] = cmd_params_lookup.process_directory(args.source_dir)
