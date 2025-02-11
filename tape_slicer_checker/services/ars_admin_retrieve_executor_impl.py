@@ -13,10 +13,11 @@ logger = logging.getLogger(__name__)
 class ArsAdminRetrieveExecutorImpl(ArsAdminRetrieveExecutor):
     def __init__(
         self, 
-        ars_admin_retriever_config: ArsAdminRetrieveConfig
+        ars_admin_retriever_config: ArsAdminRetrieveConfig,
+        output_dir: Path
     ):
         self._workers_no = ars_admin_retriever_config.workers_no
-        self._output_dir = ars_admin_retriever_config.output_dir
+        self._output_dir = output_dir
         self._ondemand_instance = ars_admin_retriever_config.ondemand_instance
         self._ondemand_user = ars_admin_retriever_config.ondemand_user
         
@@ -47,7 +48,7 @@ class ArsAdminRetrieveExecutorImpl(ArsAdminRetrieveExecutor):
                 cwd=location
             )
         except subprocess.CalledProcessError as e:
-            logging.error(f"Failed: {joined_command}, from dir: {location}")
+            logging.error(f"Failed: {joined_command}, from dir: {location}, error: {e}")
 
     def execute_commands(self, params_list: List[CmdParameters]) -> None:
         with ThreadPoolExecutor(max_workers=self._workers_no) as executor:

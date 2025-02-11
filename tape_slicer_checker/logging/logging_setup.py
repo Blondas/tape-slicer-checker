@@ -1,12 +1,10 @@
 import logging
 from datetime import datetime
+from pathlib import Path
 
-from tape_slicer_checker.config.tape_slicer_checker_config import LoggingConfig
-
-
-def setup_logging(logging_config: LoggingConfig) -> None:
+def setup_logging(output_dir: Path) -> None:
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    log_file = logging_config.log_dir / f'tape_slicer_checker_{logging_config.log_label}_{timestamp}.log'
+    log_file = output_dir/ f'tape_slicer_checker_{timestamp}.log'
     log_file.parent.mkdir(parents=True, exist_ok=True)
 
     formatter = logging.Formatter(
