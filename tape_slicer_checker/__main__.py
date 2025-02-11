@@ -7,8 +7,7 @@ from tape_slicer_checker.services.ars_admin_retrieve_executor_impl import ArsAdm
 from tape_slicer_checker.services.checksum_verifier_impl import ChecksumVerifierImpl
 from tape_slicer_checker.services.cmd_parameters import CmdParameters
 from tape_slicer_checker.services.cmd_params_lookup_impl import CmdParamsLookupImpl
-from tape_slicer_checker.services.remag_table_lookup_impl import RemagTableLookupImpl
-from tape_slicer_checker.services.remnode_table_lookup_impl import RemnodeTableLookupImpl
+from tape_slicer_checker.services.combined_table_lookup_impl import CombinedTableLookupImpl
 from tape_slicer_checker.db2.db2_connection import DB2Connection
 
 logger = logging.getLogger(__name__)
@@ -20,9 +19,8 @@ if __name__ == '__main__':
     logger.info("tape_slicer_checker starting...")
     
     db2_connection = DB2Connection(config.db_config)
-    remag_table_lookup = RemagTableLookupImpl(db2_connection)
-    remnode_table_lookup = RemnodeTableLookupImpl(db2_connection)
-    cmd_params_lookup = CmdParamsLookupImpl(remag_table_lookup, remnode_table_lookup)
+    combined_table_lookup = CombinedTableLookupImpl(db2_connection, config.checker_config.source_dir.name)
+    cmd_params_lookup = CmdParamsLookupImpl(combined_table_lookup)
     ars_admin_retrieve_executor = ArsAdminRetrieveExecutorImpl(config.ars_admin_retrieve_config)
     checksum_verifier = ChecksumVerifierImpl()
     
