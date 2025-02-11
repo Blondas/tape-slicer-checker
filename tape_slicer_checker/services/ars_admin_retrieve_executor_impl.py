@@ -35,6 +35,7 @@ class ArsAdminRetrieveExecutorImpl(ArsAdminRetrieveExecutor):
     def _execute_command(self, params: CmdParameters) -> None:
         command = self._create_command(params)
         location = Path(self._output_dir / params.ag_name)
+        location.mkdir(parents=True, exist_ok=True)
         joined_command = ' '.join(command)
         logger.debug(f"Executing : {joined_command}, from dir: {location}")
         
