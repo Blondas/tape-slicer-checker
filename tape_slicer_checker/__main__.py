@@ -42,7 +42,7 @@ if __name__ == '__main__':
     logger.info("Files verification finished")
     
     if failed_verification:
-        logger.error("Failed pairs:\n" + "\n".join(f"{p[0]} vs {p[1]}" for p in failed_verification))
+        logger.error(f"Number of failed pairs: {len(failed_verification)}")
     else:
         logger.info("All pairs are correct.")
     

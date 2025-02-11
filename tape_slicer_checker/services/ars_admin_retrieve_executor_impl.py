@@ -35,7 +35,8 @@ class ArsAdminRetrieveExecutorImpl(ArsAdminRetrieveExecutor):
     def _execute_command(self, params: CmdParameters) -> None:
         command = self._create_command(params)
         location = Path(self._output_dir / params.ag_name)
-        logger.debug(f"Executing : '{' '.join(command)}', from dir: {location}")
+        joined_command = ' '.join(command)
+        logger.debug(f"Executing : {joined_command}, from dir: {location}")
         
         try:
             subprocess.run(
@@ -45,7 +46,7 @@ class ArsAdminRetrieveExecutorImpl(ArsAdminRetrieveExecutor):
                 cwd=location
             )
         except subprocess.CalledProcessError as e:
-            logging.error(f"Command failed: '{' '.join(command)}', from dir: {location}")
+            logging.error(f"Failed: {joined_command}, from dir: {location}")
 
     def execute_commands(self, params_list: List[CmdParameters]) -> None:
         with ThreadPoolExecutor(max_workers=self._workers_no) as executor:
